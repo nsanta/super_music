@@ -15,8 +15,6 @@ gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'rack-cors'
 
 gem 'puma', '~> 3.7'
-gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'
-gem 'simple_token_authentication', '~> 1.0'
 
 gem "trailblazer"
 gem "trailblazer-rails"

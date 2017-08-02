@@ -1,0 +1,53 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
+    - 'log/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+    - 'doc/**/*'
+    - 'Rakefile'
+    - 'Gemfile'
+    - 'config.ru'
+    - 'Capfile'
+Metrics/LineLength:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Style/SingleLineBlockParams:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/BlockNesting:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Style/Lambda:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/GlobalVars:
+  AllowedVariables:
+    - $redis
+Style/ModuleFunction:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+Style/RegexpLiteral:
+  Enabled: false

@@ -17,7 +17,7 @@ class Api::V1::ArtistsController < ApplicationController
     result = run Artist::Index
     response_success(
       result["model"],
-      page: params[:page],
+      page: (params[:page] || 1).to_i,
       size: result["model"].size,
       total: result["model"].total_count
     )
@@ -58,7 +58,7 @@ class Api::V1::ArtistsController < ApplicationController
   api!
   param :id, :number, required: true, desc: "The album's Id"
   def destroy
-    result = run Artist::Destroy
-    response_success(result["model"])
+    run Artist::Destroy
+    render nothing: true, status: 204
   end
 end

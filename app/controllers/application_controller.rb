@@ -1,12 +1,19 @@
 class ApplicationController < ActionController::API
+  rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
+
   protected
 
-  def response_success(resource, status = 200, meta_data = {})
+  def resource_not_found
+    render nothing: true, status: 404
+  end
+
+  def response_success(resource, meta_data = {}, status = 200)
     render json: { data: represent(resource), meta: meta_data }, status: status
   end
 
   def response_error(operation)
-    render errors(operation)
+    errors = build_errors(operation)
+    render json: { errors: errors[:errors] }, status: errors[:status]
   end
 
   def represent(resource)
@@ -21,10 +28,8 @@ class ApplicationController < ActionController::API
     "#{resource.class.name}::Representer".constantize
   end
 
-  def errors(operation)
-    if policy_error?(operation)
-      { nothing: true, status: :unauthorized }
-    elsif contract_error?(operation)
+  def build_errors(operation)
+    if contract_error?(operation)
       { errors: operation['result.contract.default'].errors.messages, status: :bad_request }
     else
       { nothing: true, status: :unprocessable_entity }

@@ -1,5 +1,6 @@
 class Artist < ApplicationRecord
-  has_many :albums
+  include OrderedByName
 
-  scope :order_by_name, -> { order(name: :asc) }
+  has_many :albums
+  has_many :songs
 end

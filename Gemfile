@@ -23,6 +23,7 @@ gem 'roar', require: ['roar', 'roar/json/hal']
 gem 'multi_json'
 gem 'bcrypt', '~> 3.1.7'
 gem 'kaminari'
+gem 'apipie-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -47,7 +48,7 @@ group :test do
   gem 'brakeman', require: false #Security scanner which checks application for security vulnerabilities. see: https://github.com/presidentbeef/brakeman
   gem 'faker' #makes it easy to provide fake data for testing, see: https://github.com/stympy/faker
   gem 'factory_girl_rails' #a fixtures replacement with a straightforward definition syntax, support for multiple build strategies. see https://github.com/thoughtbot/factory_girl_rails
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

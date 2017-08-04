@@ -1,6 +1,6 @@
-class Api::V1::ArtistsController < ApplicationController
+class Api::V1::AlbumsController < ApplicationController
   resource_description do
-    short 'Artists endpoint'
+    short 'Albums endpoint'
     formats ['json']
     error 404, "Missing"
     error 500, "Server crashed "
@@ -13,8 +13,9 @@ class Api::V1::ArtistsController < ApplicationController
 
   api!
   param :page, :number, desc: "The page number to be requested"
+  param :query, String, desc: "The query to search by name"
   def index
-    result = run Artist::Index
+    result = run Album::Index
     response_success(
       result["model"],
       page: (params[:page] || 1).to_i,
@@ -24,12 +25,13 @@ class Api::V1::ArtistsController < ApplicationController
   end
 
   api!
-  param :artist, Hash, required: true do
-    param :name, String, required: true, desc: "Artist's name"
-    param :bio, String, desc: "Artist's bio"
+  param :album, Hash, required: true do
+    param :name, String, required: true, desc: "Album's name"
+    param :cover_art, String, desc: "Album's cover_art"
+    param :artist_id, Integer, desc: "The Album's Artist Id"
   end
   def create
-    result = run Artist::Create do |_operation|
+    result = run Album::Create do |_operation|
       return render_no_content
     end
     response_error(result)
@@ -38,18 +40,19 @@ class Api::V1::ArtistsController < ApplicationController
   api!
   param :id, :number, required: true, desc: "The album's Id"
   def show
-    result = run Artist::Show
+    result = run Album::Show
     response_success(result["model"])
   end
 
   api!
   param :id, :number, required: true, desc: "The album's Id"
-  param :artist, Hash, required: true do
-    param :name, String, required: true, desc: "Artist's name"
-    param :bio, String, desc: "Artist's bio"
+  param :album, Hash, required: true do
+    param :name, String, required: true, desc: "Album's name"
+    param :cover_art, String, desc: "Album's cover_art"
+    param :artist_id, Integer, desc: "The Album's Artist Id"
   end
   def update
-    result = run Artist::Update do |_operation|
+    result = run Album::Update do |_operation|
       return render_no_content
     end
     response_error(result)
@@ -58,7 +61,7 @@ class Api::V1::ArtistsController < ApplicationController
   api!
   param :id, :number, required: true, desc: "The album's Id"
   def destroy
-    run Artist::Destroy
+    run Album::Destroy
     render_no_content
   end
 end

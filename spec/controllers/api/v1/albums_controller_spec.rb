@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ArtistsController, type: :controller do
+RSpec.describe Api::V1::AlbumsController, type: :controller do
+  let(:artist) { create(:artist) }
   let(:json_body) do
     JSON.parse(response.body, symbolize_names: true)
   end
@@ -10,7 +11,7 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
   let(:meta) { json_body[:meta] }
 
   describe "GET #index" do
-    let!(:artist) { create(:artist) }
+    let!(:album) { create(:album) }
     let(:params) { {} }
     subject { get :index, params: params }
 
@@ -19,14 +20,14 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
       expect(response.success?).to eq(true)
     end
 
-    it "should provide a list of artists" do
+    it "should provide a list of albums" do
       subject
-      expect(data.first[:id]).to eq(artist.id)
+      expect(data.first[:id]).to eq(album.id)
     end
 
     context "pagination" do
       before do
-        30.times { create(:artist) }
+        30.times { create(:album) }
       end
       context "default page" do
         let(:params) { {} }
@@ -55,10 +56,10 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
 
   describe "POST #create" do
     let(:name) { "Album's Name" }
-    let(:bio) { "bio" }
+    let(:cover_art) { "cover_art" }
     let(:params) do
       {
-        artist: { name: name, bio: bio }
+        album: { name: name, cover_art: cover_art, artist_id: artist }
       }
     end
 
@@ -69,8 +70,8 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
       expect(response.status).to eq(204)
     end
 
-    it "should create the artist" do
-      expect { subject }.to change { Artist.count }.by(1)
+    it "should create the album" do
+      expect { subject }.to change { Album.count }.by(1)
     end
 
     context "when is invalid" do
@@ -89,10 +90,10 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
   end
 
   describe "GET #show" do
-    let!(:artist) { create(:artist) }
-    let(:artist_id) { artist.id }
+    let!(:album) { create(:album) }
+    let(:album_id) { album.id }
 
-    let(:params) { { id: artist_id } }
+    let(:params) { { id: album_id } }
 
     subject { get :show, params: params }
 
@@ -101,14 +102,14 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
       expect(response.success?).to eq(true)
     end
 
-    it "should show the artist" do
+    it "should show the album" do
       subject
-      expect(data[:name]).to eq(artist.name)
-      expect(data[:bio]).to eq(artist.bio)
+      expect(data[:name]).to eq(album.name)
+      expect(data[:cover_art]).to eq(album.cover_art)
     end
 
     context "when the resource is not found" do
-      let(:artist_id) { -123 }
+      let(:album_id) { -123 }
 
       it "should respond with a 404" do
         subject
@@ -118,14 +119,14 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
   end
 
   describe "PUT #update" do
-    let!(:artist) { create(:artist) }
+    let!(:album) { create(:album) }
     let(:name) { "Album's Name" }
-    let(:bio) { "bio" }
+    let(:cover_art) { "cover_art" }
 
     let(:params) do
       {
-        id: artist.id,
-        artist: { name: name, bio: bio }
+        id: album.id,
+        album: { name: name, cover_art: cover_art, artist_id: artist }
       }
     end
 
@@ -136,11 +137,11 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
       expect(response.status).to eq(204)
     end
 
-    it "should update the artist" do
+    it "should update the album" do
       subject
-      artist.reload
-      expect(artist.name).to eq(name)
-      expect(artist.bio).to eq(bio)
+      album.reload
+      expect(album.name).to eq(name)
+      expect(album.cover_art).to eq(cover_art)
     end
 
     context "when is invalid" do
@@ -159,10 +160,10 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:artist) { create(:artist) }
-    let(:artist_id) { artist.id }
+    let!(:album) { create(:album) }
+    let(:album_id) { album.id }
 
-    let(:params) { { id: artist_id } }
+    let(:params) { { id: album_id } }
 
     subject { delete :destroy, params: params }
 
@@ -176,12 +177,12 @@ RSpec.describe Api::V1::ArtistsController, type: :controller do
       expect(response.status).to eq(204)
     end
 
-    it "should delte the artist" do
-      expect { subject }.to change { Artist.count }.by(-1)
+    it "should delte the album" do
+      expect { subject }.to change { Album.count }.by(-1)
     end
 
     context "when the resource is not found" do
-      let(:artist_id) { -123 }
+      let(:album_id) { -123 }
 
       it "should respond with a 404" do
         subject

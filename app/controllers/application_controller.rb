@@ -3,6 +3,10 @@ class ApplicationController < ActionController::API
 
   protected
 
+  def render_no_content
+    render nothing: true, status: 204
+  end
+
   def resource_not_found
     render nothing: true, status: 404
   end

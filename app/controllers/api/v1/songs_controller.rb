@@ -1,5 +1,6 @@
 class Api::V1::SongsController < ApplicationController
   resource_description do
+    name "Songs"
     short 'Songs endpoint'
     formats ['json']
     error 404, "Missing"

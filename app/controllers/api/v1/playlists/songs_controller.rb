@@ -1,6 +1,7 @@
 class Api::V1::Playlists::SongsController < ApplicationController
   resource_description do
-    short 'Songs endpoint'
+    name "Playlist's Songs"
+    short 'Playlist Songs endpoint'
     formats ['json']
     error 404, "Missing"
     error 500, "Server crashed "
@@ -11,7 +12,7 @@ class Api::V1::Playlists::SongsController < ApplicationController
     EOS
   end
 
-  api!
+  api :POST, "/playlists/:playlist_id/song", "Add a song to a playlist"
   param :song_id, :number, required: true, desc: "Playlist's Song Id"
   param :playlist_id, :number, required: true, desc: "Playlist Id"
   def create
@@ -21,7 +22,7 @@ class Api::V1::Playlists::SongsController < ApplicationController
     response_error(result)
   end
 
-  api!
+  api :DELETE, "/playlists/:playlist_id/song" , "Remove a song from a playlist"
   param :song_id, :number, required: true, desc: "Playlist's Song Id"
   param :playlist_id, :number, required: true, desc: "Playlist Id"
   def destroy

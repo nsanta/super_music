@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
       resources :songs, only: [:index, :create, :show, :update, :destroy]
       resources :playlists, only: [:index, :create, :show, :update, :destroy] do
-        resources :songs, only: [:create, :destroy], controller: 'playlists/songs'
+        resource :song, only: [:create, :destroy], controller: 'playlists/songs'
       end
     end
   end

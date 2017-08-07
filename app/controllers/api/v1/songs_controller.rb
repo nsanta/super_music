@@ -13,6 +13,9 @@ class Api::V1::SongsController < ApplicationController
 
   api!
   param :page, :number, desc: "The page number to be requested"
+  param :name, String, desc: "the query search by name"
+  param :artist_id, :number, desc: "The Artist id related to the songs"
+  param :album_id, :number, desc: "The Album id related to the songs"
   def index
     result = run Song::Index
     response_success(

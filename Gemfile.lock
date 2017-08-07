@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/thoughtbot/shoulda-matchers.git
+  revision: 8d686d73644d448fd6a2bae35a1447d4ef524ca9
+  branch: rails-5
+  specs:
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -40,6 +48,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    apipie-rails (0.5.1)
+      rails (>= 4.1)
     arel (8.0.0)
     bcrypt (3.1.11)
     brakeman (3.7.0)
@@ -178,8 +188,6 @@ GEM
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
     ruby_dep (1.5.0)
-    shoulda-matchers (3.1.2)
-      activesupport (>= 4.0.0)
     slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -222,6 +230,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   bcrypt (~> 3.1.7)
   brakeman
   byebug
@@ -236,9 +245,10 @@ DEPENDENCIES
   puma (~> 3.7)
   rack-cors
   rails (~> 5.1.1)
+  reform-rails
   roar
   rspec-rails
-  shoulda-matchers
+  shoulda-matchers!
   spring
   spring-watcher-listen (~> 2.0.0)
   trailblazer

@@ -4,5 +4,4 @@ class Album::Representer < Roar::Decorator
   property :id
   property :name
   property :cover_art
-  property :artist, decorator: Artist::Representer
 end

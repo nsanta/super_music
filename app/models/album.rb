@@ -5,5 +5,5 @@ class Album < ApplicationRecord
   scope :by_artist, ->(artist_id) { where(artist_id: artist_id) }
 
   belongs_to :artist
-  has_many :songs
+  has_many :songs, dependent: :destroy
 end

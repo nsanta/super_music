@@ -5,6 +5,4 @@ class Song::Representer < Roar::Decorator
   property :name
   property :duration
   property :genre
-  property :artist, decorator: Artist::Representer
-  property :album, decorator: Album::Representer
 end
